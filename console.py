@@ -146,11 +146,9 @@ class HBNBCommand(cmd.Cmd):
                 pass
             args_dic[key] = value
 
-        if 'created_at' not in args_dic:
-            args_dic['created_at'] = datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%f')
-        if 'updated_at' not in args_dic:
-            args_dic['updated_at'] = datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%f')
         new_instance = HBNBCommand.classes[class_name](**args_dic)
+        print(new_instance.id)
+        new_instance.save()
 
     def help_create(self):
         """ Help information for the create method """
