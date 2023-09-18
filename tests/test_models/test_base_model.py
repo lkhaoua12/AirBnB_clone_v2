@@ -8,7 +8,7 @@ from uuid import UUID
 import json
 import os
 
-class TestBaseModel(unittest.TestCase):
+class test_basemodel(unittest.TestCase):
     def test_attributes(self):
         """Test the attributes of the BaseModel instance"""
         model = BaseModel()
