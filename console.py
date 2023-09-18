@@ -135,8 +135,8 @@ class HBNBCommand(cmd.Cmd):
             if len(key_value) != 2:
                 continue
             key, value = key_value[0], key_value[1]
-            if value.startswith('"') and key.endswith('"'):
-                key = key[1:-1].replace('\\"', '"').replace('_', ' ')
+            if value.startswith('"') and value.endswith('"'):
+                value = value[1:-1].replace('\\"', '"').replace('_', ' ')
             try:
                 if '.' in key:
                     key = float(key)
