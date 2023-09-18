@@ -2,6 +2,7 @@
 """ Console Module """
 import cmd
 import sys
+from datetime import datetime
 from models.base_model import BaseModel
 from models.__init__ import storage
 from models.user import User
@@ -134,20 +135,22 @@ class HBNBCommand(cmd.Cmd):
             if len(key_value) != 2:
                 continue
             key, value = key_value[0], key_value[1]
-            if key.startswith('"') and key.endswith('"'):
-                key = key[1:-1]
-            value = value.replace('_', ' ')
-            value = value.replace('\\"', '"')
+            if value.startswith('"') and key.endswith('"'):
+                key = key[1:-1].replace('\\"', '"').replace('_', ' ')
             try:
-                if '.' in value:
-                    value = float(value)
+                if '.' in key:
+                    key = float(key)
                 else:
-                    value = int(value)
+                    key = int(key)
             except ValueError:
                 pass
             args_dic[key] = value
-            new_instance = HBNBCommand.classes[class_name](**args_dic)
 
+        if 'created_at' not in args_dic:
+            args_dic['created_at'] = datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%f')
+        if 'updated_at' not in args_dic:
+            args_dic['updated_at'] = datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%f')
+        new_instance = HBNBCommand.classes[class_name](**args_dic)
 
     def help_create(self):
         """ Help information for the create method """
