@@ -3,10 +3,10 @@
 
 from models.base_model import BaseModel
 import unittest
-import datetime
 from uuid import UUID
 import json
 import os
+from datetime import datetime
 
 class test_basemodel(unittest.TestCase):
     def test_attributes(self):
@@ -55,6 +55,3 @@ class test_basemodel(unittest.TestCase):
         self.assertEqual(type(model_dict['created_at']), str)
         self.assertEqual(type(model_dict['updated_at']), str)
         self.assertEqual(type(model_dict['id']), str)
-
-if __name__ == '__main__':
-    unittest.main()
