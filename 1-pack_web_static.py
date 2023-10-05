@@ -1,5 +1,7 @@
 from fabric.api import local
 from datetime import datetime
+""" compress web_static folder before deployment """
+
 
 def do_pack():
     """
