@@ -21,3 +21,5 @@ def do_pack():
     result = local(f'tar -cvzf {full_path} webstatic')
     if result.succeeded:
         return full_path
+    else:
+        return None
