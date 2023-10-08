@@ -1,32 +1,25 @@
 #!/usr/bin/python3
-""" compress web_static folder before deployment """
+""" using fabric to compress webstatic files"""
 
 from fabric.api import local
 from datetime import datetime
 
 
 def do_pack():
-    """
-    Create a .tgz archive from the contents of the web_static folder.
-    """
+    """ compress files of webstatic for deployment """
 
-    # Get the current date and time
-    now = datetime.now()
+    # get the timestamp for archive name.
+    timestamp = datetime.now().strftime('Y%m%d%H%M%S')
 
-    # Create a formatted timestamp
-    timestamp = now.strftime("%Y%m%d%H%M%S")
+    # set the archive full path
+    full_path = f'versions/web_static_{timestamp}.tgz'
 
-    # Define the archive path
-    archive_path = "versions/web_static_{}.tgz".format(timestamp)
+    # create folder versions if not exist
+    local("mkdir -p versions/")
 
-    # Create the versions directory if it doesn't exist
-    local("mkdir -p versions")
-
-    # Compress the web_static folder into a .tgz archive
-    result = local("tar -cvzf {} web_static".format(archive_path))
-
-    # Check if the archive was created successfully
-    if result.succeeded:
-        return archive_path
-    else:
-        return None
+    # compress webstatic to the desired directory
+    try:
+        local(f'tar -cvzf {full_path} webstatic')
+        return full_path
+    except Exception:
+        pass
