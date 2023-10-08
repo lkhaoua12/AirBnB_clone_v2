@@ -18,8 +18,6 @@ def do_pack():
     local("mkdir -p versions/")
 
     # compress webstatic to the desired directory
-    try:
-        local(f'tar -cvzf {full_path} webstatic')
+    result = local(f'tar -cvzf {full_path} webstatic')
+    if result.succeeded:
         return full_path
-    except Exception:
-        pass
