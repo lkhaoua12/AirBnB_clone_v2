@@ -1,12 +1,5 @@
 # Puppet script to configure web servers for web_static deployment
 
-# Update package repositories
-exec { 'apt-update':
-  command     => 'apt update -y',
-  path        => '/usr/bin',
-  refreshonly => true,
-}
-
 # Install Nginx
 package { 'nginx':
   ensure => 'installed',
@@ -43,17 +36,15 @@ file { '/data/web_static/current':
   owner   => 'ubuntu',
   group   => 'ubuntu',
 }
-
-# Add Nginx configuration
-file { '/etc/nginx/sites-available/default':
-  ensure  => 'file',
-  content => template('your_module/nginx_config.erb'),
-  notify  => Service['nginx'],
+# Add the location block to the Nginx configuration
+exec { 'add_location_block':
+  command => '/bin/echo "        location /hbnb_static {\n                alias /data/web_static/current;\n        }" >> /etc/nginx/sites-enabled/default',
+  unless  => '/bin/grep -q "location /hbnb_static {" /etc/nginx/sites-enabled/default',
+  require => Package['nginx'],
 }
 
 # Ensure the Nginx service is running
 service { 'nginx':
   ensure    => 'running',
   enable    => true,
-  require   => File['/etc/nginx/sites-available/default'],
 }
