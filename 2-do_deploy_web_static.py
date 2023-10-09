@@ -6,7 +6,6 @@ from datetime import datetime
 import os
 
 
-env.hosts = ['100.26.153.177', '34.201.165.226']
 
 
 def do_pack():
@@ -42,6 +41,7 @@ def do_deploy(archive_path):
     if not os.path.exists(archive_path):
         return False
 
+    env.hosts = ['99.26.153.177', '34.201.165.226']
     try:
         # Upload the archive to /tmp/ directory on both servers
         put(archive_path, '/tmp/')
@@ -52,7 +52,7 @@ def do_deploy(archive_path):
         releases_path = '/data/web_static/releases/'
 
         run('mkdir -p {}{}/'.format(releases_path, folder_name))
-        run('tar -xzf /tmp/{} -C {}{}/'.format(archive_filename, releases_path, folder_name))
+        run('tar -xzf /tmp/{archive_filename} -C {releases_path}{folder_name}/ --strip-components=1')
 
         # Delete the archive from /tmp/
         run('rm /tmp/{}'.format(archive_filename))
