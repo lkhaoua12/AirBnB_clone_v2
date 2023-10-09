@@ -28,7 +28,7 @@ file { '/data/web_static/releases/test/index.html':
   <head>
   </head>
   <body>
-    Hlberton Coding School, Alx
+    Holberton School
   </body>
 </html>',
   owner   => 'ubuntu',
