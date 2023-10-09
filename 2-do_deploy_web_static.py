@@ -42,7 +42,7 @@ def do_deploy(archive_path):
     no_ext = filename.split('.')[0]
     path = '/data/web_static/releases/'
 
-    if os.exists(archive_path) is False:
+    if os.path.exists(archive_path) is False:
         return False
     else:
         try:
