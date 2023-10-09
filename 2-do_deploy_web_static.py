@@ -6,8 +6,6 @@ from datetime import datetime
 import os
 
 
-
-
 def do_pack():
     """
     Create a .tgz archive from the contents of the web_static folder.
