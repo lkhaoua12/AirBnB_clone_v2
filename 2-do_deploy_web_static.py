@@ -35,25 +35,34 @@ def do_pack():
     else:
         return None
 
-def do_deploy(archive_path):
-    """ """
-    arc_path = 'versions/web_static_20221214143240.tgz'
-    filename = arc_path.split('/')[-1]
-    no_ext = filename.split('.')[0]
-    path = '/data/web_static/releases/'
 
-    if os.path.exists(archive_path) is False:
+def do_deploy(archive_path):
+    """Distribute an archive to web servers"""
+
+    if not os.path.exists(archive_path):
         return False
-    else:
-        try:
-            put(archive_path, '/tmp/')
-            run(f'sudo mkdir -p {path}{filename}')
-            run(f'sudo tar -xzf /tmp/{arc_path} -C {path}{no_ext}')
-            run(f'sudo rm /tmp/{filename}')
-            run(f'sudo mv {path}{no_ext}/web_static/* {path}{no_ext}/')
-            run(f'sudo rm -rf {path}{no_ext}/web_static')
-            run(f'sudo rm -rf /data/web_static/current')
-            run(f'sudo ln -s {path}{no_ext} /data/web_static/current')
-            return True
-        except Exception:
-            return False
+
+    try:
+        # Upload the archive to /tmp/ directory on both servers
+        put(archive_path, '/tmp/')
+
+        # Extract the archive to /data/web_static/releases/
+        archive_filename = archive_path.split('/')[-1]
+        folder_name = archive_filename.replace('.tgz', '')
+        releases_path = '/data/web_static/releases/'
+
+        run('mkdir -p {}{}/'.format(releases_path, folder_name))
+        run('tar -xzf /tmp/{} -C {}{}/'.format(archive_filename, releases_path, folder_name))
+
+        # Delete the archive from /tmp/
+        run('rm /tmp/{}'.format(archive_filename))
+
+        # Create a new symbolic link to the new version
+        current_path = '/data/web_static/current'
+        run('rm -f {}'.format(current_path))
+        run('ln -s {}{}/ {}'.format(releases_path, folder_name, current_path))
+
+        return True
+
+    except Exception:
+        return False
