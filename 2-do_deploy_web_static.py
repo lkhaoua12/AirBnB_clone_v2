@@ -50,7 +50,8 @@ def do_deploy(archive_path):
         releases_path = '/data/web_static/releases/'
 
         run('mkdir -p {}{}/'.format(releases_path, folder_name))
-        run('tar -xzf /tmp/{archive_filename} -C {releases_path}{folder_name}/ --strip-components=1')
+        run(f'tar -xzf /tmp/{archive_filename} \
+        -C {releases_path}{folder_name}/ --strip-components=1')
 
         # Delete the archive from /tmp/
         run('rm /tmp/{}'.format(archive_filename))
