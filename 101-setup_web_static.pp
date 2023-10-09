@@ -24,8 +24,6 @@ file { '/data/web_static/releases/test/index.html':
     Holberton School
   </body>
 </html>',
-  owner   => 'ubuntu',
-  group   => 'ubuntu',
   mode    => '0644',
 }
 
@@ -33,8 +31,6 @@ file { '/data/web_static/releases/test/index.html':
 file { '/data/web_static/current':
   ensure  => 'link',
   target  => '/data/web_static/releases/test/',
-  owner   => 'ubuntu',
-  group   => 'ubuntu',
 }
 # Add the location block to the Nginx configuration
 exec { 'add_location_block':
