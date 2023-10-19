@@ -31,7 +31,7 @@
 .popover {
 	list-style-type: none;
 	display: none;
-	background-color: #FAFAFA;
+	background-color: smokewithe;
 	width: 100%;
 
 	margin-left: -1px;
@@ -97,5 +97,5 @@ button {
 }
 
 button:hover {
-	opacity: 90%;
+	opacity: 100%;
 }
