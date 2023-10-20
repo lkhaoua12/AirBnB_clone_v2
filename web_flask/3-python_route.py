@@ -30,7 +30,7 @@ def homeC(text):
 def homePython(text="is_cool"):
     """ render the /python/<text> page """
     text = 'is cool' if not text else text
-    return f'python {text.replace("_", " ")}'
+    return f'Python {text.replace("_", " ")}'
 
 
 if __name__ == "__main__":
