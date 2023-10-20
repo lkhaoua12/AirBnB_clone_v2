@@ -29,7 +29,7 @@ def homeC(text):
 @app.route('/python/<text>', strict_slashes=False)
 def homePython(text="is_cool"):
     """ render the /python/<text> page """
-    return f"python {text.replace('_', ' ')}"
+    return f"Python {text.replace('_', ' ')}"
 
 
 @app.route('/number/<int:n>', strict_slashes=False)
