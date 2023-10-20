@@ -27,10 +27,10 @@ def homeC(text):
 
 @app.route('/python/', strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
-def homePython(text="is cool"):
+def homePython(text="is_cool"):
     """ render the /python/<text> page """
     text = 'is cool' if not text else text
-    return f'python {text}'
+    return f'python {text.replace("_", " ")}'
 
 
 if __name__ == "__main__":
