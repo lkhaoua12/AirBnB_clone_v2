@@ -14,6 +14,7 @@ def close_app(exception):
 @app.route('/cities_by_states', strict_slashes=False)
 def cities_by_states():
     states = storage.all(state.State).values()
+    states = sorted(states, key=lambda state: state.name)
     return render_template('8-cities_by_states.html', states=states)
 
 
